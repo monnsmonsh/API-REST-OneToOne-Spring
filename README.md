@@ -216,11 +216,93 @@ http://localhost:8080/swagger-ui/index.html
 ```
 <image src="https://github.com/monnsmonsh/API-REST-OneToOne-Spring/blob/main/assets/doc_api.png" alt="doc api">
 
-## Uso de Frontend
+## Creacion del Frontend
 Este apartado es opcional, lo primero que tenemos realizar es mandar llamar nuestra api en una `const`
 ```js
 const API_URL_EMPLEADOS = "http://localhost:8080/api/v1/employee";
 const API_URL_CARGOS = "http://localhost:8080/api/v1/management";
 ```
-
+Ahora creamos una funcion que nos permita cargar los cargos `management` y mostrarlos posteriormente en una lisa por el nombre y el telefono
+```js
+function cargarOpcionesCargos() {
+    fetch(API_URL_CARGOS)
+        .then((response) => response.json())
+        .then((data) => {
+            const selectCargo = document.getElementById("empleadoCargo");
+            selectCargo.innerHTML = "";
+            data.forEach((cargo) => {
+                const option = document.createElement("option");
+                option.value = cargo.idManagement;
+                option.textContent = `${cargo.name} - ${cargo.phone}`;
+                selectCargo.appendChild(option);
+            });
+        })
+        .catch((error) => {
+            console.error("Error al obtener la lista de cargos:", error);
+        });
+}
+```
+Continuamos con una funcion que ahora nos liste nuestros empleados en una en un contendio en una card para cada empleado
+```js
+function obtenerEmpleados() {
+    fetch(API_URL_EMPLEADOS)
+      .then((response) => response.json())
+      .then((data) => {
+        const listaEmpleados = document.getElementById("listaEmpleados");
+        listaEmpleados.innerHTML = "";
+        data.forEach((empleado) => {
+          const cardEmpleado = `
+                    <div class="card mb-2">
+                        <header class="card-header">${empleado.name}</header>
+                        <div class="card-content">
+                            <div class="content">
+                                <p>Apellido: ${empleado.lastName}</p>
+                                <p>Fecha de Nacimiento: ${empleado.birthDate}</p>
+                                <p>Teléfono: ${empleado.phone}</p>
+                                <p>Cargo: ${
+                                    empleado.management
+                                        ? empleado.management.name
+                                        : "Sin asignar"
+                                }</p>
+                            </div>
+                        </div>
+                    </div>
+                  `;
+          listaEmpleados.innerHTML += cardEmpleado;
+        });
+    })
+    .catch((error) => {
+    console.error("Error al obtener la lista de empleados:", error);
+    });
+}
+```
+Ya que nuestra relacion es uno a uno creamos un listado que muestre nuestros cargos disponibles en nuestra APIy nos los imprima en una seccion aparte.
+```js
+function obtenerCargos() {
+    fetch(API_URL_CARGOS)
+        .then((response) => response.json())
+        .then((data) => {
+            cargosDisponibles = data; // Almacenar los cargos disponibles
+            const listaCargos = document.getElementById("listaCargos");
+            listaCargos.innerHTML = "";
+            data.forEach((cargo) => {
+            const cardCargo = `
+                        <div class="card mb-2" id="cargo-${cargo.idManagement}">
+                            <header class="card-header">${cargo.name}</header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p>Telefono: ${cargo.phone}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    listaCargos.innerHTML += cardCargo;
+            });
+            cargarOpcionesCargos(); // Actualizar opciones de cargos en el formulario de clientes
+        })
+        .catch((error) => {
+            console.error("Error al obtener la lista de cargos:", error);
+        });
+}
+```
 
