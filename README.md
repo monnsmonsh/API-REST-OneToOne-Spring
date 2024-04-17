@@ -203,7 +203,6 @@ Una vez configurado, puedes ejecutar la API y probar los endpoints utilizando he
 Para accesar a la base de datos H2 mediante URL:
 ```url
 http://localhost:8080/h2-console/
-
 ```
 ```yml
   url: http://localhost:8080/h2-console/
@@ -211,4 +210,8 @@ http://localhost:8080/h2-console/
   user: sa
   password: 
 ```
-
+Acceso a la UI de la documentación de la API mediante URL:
+```url
+http://localhost:8080/swagger-ui/index.html
+```
+<image src="https://github.com/monnsmonsh/API-REST-OneToOne-Spring/blob/main/assets/doc_api.png" alt="doc api">
