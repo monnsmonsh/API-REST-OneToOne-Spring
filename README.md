@@ -217,7 +217,9 @@ http://localhost:8080/swagger-ui/index.html
 <image src="https://github.com/monnsmonsh/API-REST-OneToOne-Spring/blob/main/assets/doc_api.png" alt="doc api">
 
 ## Creacion del Frontend
-Este apartado es opcional, lo primero que tenemos realizar es mandar llamar nuestra api en una `const`
+Este apartado es opcional, lo primero que tenemos realizar es mandar llamar nuestra api en una `const`.
+> **NOTA**
+>> Se utlizo de frontend `**Bulma 1.0.0**` como los estilos de CSS
 ```js
 const API_URL_EMPLEADOS = "http://localhost:8080/api/v1/employee";
 const API_URL_CARGOS = "http://localhost:8080/api/v1/management";
@@ -305,4 +307,48 @@ function obtenerCargos() {
         });
 }
 ```
+### Crear Empleados y Cargos
+Creamos las funciones que nos permitan crear un nuevo cargo y un nuevo empleado tomando la informacion por el metodo `document.getElementById("idInput").value,` y lo almacenamos en una `const` dandole formato `JSON`
+```js
+function crearEmpleado(event) {
+    event.preventDefault();
+    const empleadoData = {
+      name: document.getElementById("empleadoNombre").value,
+      lastName: document.getElementById("empleadoApellidos").value,
+      birthDate: document.getElementById("empleadoNacimiento").value,
+      phone: document.getElementById("empleadoTelefono").value,
+      management: {
+        idManagement: document.getElementById("empleadoCargo").value
+      },
+    };
+  
+    fetch(API_URL_EMPLEADOS, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(empleadoData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Empleado creado:", data);
+        document.getElementById("formEmpleado").reset();
+        obtenerEmpleados();
+      })
+      .catch((error) => {
+        console.error("Error al crear el empleado:", error);
+      });
+  }
 
+```
+Para poder mantener actulizanda nuestra pagina llamamos la funciones correspondientes para que se actualice cuando se realice un vambion
+```js
+cargarOpcionesCargos();
+obtenerEmpleados();
+obtenerCargos();
+```
+y por ultimo asignamo los enventos de nuestros botones de nuestro formulario de HTML
+```js
+document.getElementById("formEmpleado").addEventListener("submit", crearEmpleado);
+document.getElementById("formCargo").addEventListener("submit", crearCargo);
+```
