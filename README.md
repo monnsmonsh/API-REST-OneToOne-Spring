@@ -26,7 +26,7 @@ Las dependecias seran:
   - **Lombok:** nos ayuda a disminuir el codigo de los entitys de nuestras tablas `getters` & `setters`
   - **H2 DataBase:** es una bd que esta integrada en nuestra aplicacion
 
-<image src="https://github.com/monnsmonsh/API-REST-OneToMany-Spring/blob/main/assets/config.png" alt="Config spring">
+<image src="https://github.com/monnsmonsh/API-REST-OneToOne-Spring/blob/main/assets/Config.png" alt="Config spring">
 
 > No es necesario utilizar `IntelliJ IDEA` puedes utilizar cualquier otro IDE que soporte java.
 
