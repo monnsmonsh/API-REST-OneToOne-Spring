@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Clientes y Carros</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .columna {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-half">
+                <!-- Formulario para agregar Empleado -->
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Agregar Empleado
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <form id="formEmpleado">
+                                <div class="field">
+                                    <label class="label">Nombre del empleado</label>
+                                    <div class="control">
+                                        <input type="text" class="input" id="empleadoNombre" placeholder="Nombre del cliente">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Apellidos del empleado</label>
+                                    <div class="control">
+                                        <input type="text" class="input" id="empleadoApellidos" placeholder="Nacionalidad">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Cumpleaños</label>
+                                    <div class="control">
+                                        <input type="date" class="input" id="empleadoNacimiento" placeholder="fecha de nacimineto">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Teléfono</label>
+                                    <div class="control">
+                                        <input type="text" class="input" id="empleadoTelefono" placeholder="Teléfono">
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">Cargo</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select id="empleadoCargo">
+                                                <!-- Aquí se cargarán las opciones de carros -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="field">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">Agregar Empleado</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario para agregar Gerencia -->
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Agregar Cargo
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <form id="formCargo">
+                                <div class="field">
+                                    <label class="label">Nombre del cargo</label>
+                                    <div class="control">
+                                        <input type="text" class="input" id="cargoNombre" placeholder="Nombre del carro">
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">Telefono</label>
+                                    <div class="control">
+                                        <input type="phone" class="input" id="cargoTelefono" placeholder="Valor">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">Agregar Puesto</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-half">
+                <!-- Lista de clientes con carros -->
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Lista de Empleados con puesto
+                        </p>
+                    </header>
+                    <div class="card-content" id="listaEmpleados">
+                        <!-- Aquí se cargarán los clientes y los carros que compraron -->
+                    </div>
+                </div>
+
+                <!-- Lista de carros disponibles -->
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Lista de Cargos Disponibles
+                        </p>
+                    </header>
+                    <div class="card-content" id="listaCarros">
+                        <!-- Aquí se cargarán los carros disponibles -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
