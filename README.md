@@ -195,3 +195,16 @@ Una vez configurado, puedes ejecutar la API y probar los endpoints utilizando he
 | `POST` | `Crear` | localhost:8080/app/v1/employee |
 | `PUT` | `Editar` | localhost:8080/app/v1/employee/edit/1 |
 | `DELETE` | `Eliminar` | localhost:8080/app/v1/employee/delete/4 |
+
+> **PARA VISUALIAZAR LA BASE DE DATOS**
+>> - Recuerda que la creamos por medio de `H2 DataBase`
+
+## Accesos
+Para accesar a la base de datos H2 mediante URL:
+```yml
+  url: http://localhost:8080/h2-console/
+  JDBC URL: jdbc:h2:mem:hotel	
+  user: sa
+  password: 
+```
+
