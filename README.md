@@ -92,3 +92,27 @@ Para definir las relacionacion primero tenemos que tener en claro que tipo de re
 >> Al utilizar *Lombok* nos evitamos crear nuestros getters y setters en nuestras entidades, y de los constructores.
 
 
+
+## Creacion de repositorios
+Creamos un `package` dentro del paquete principal con el nombre `repository` en donde se almacena toda la logica de acceso a nuestra bd y sobre todo como va a funcionar **JPA** para almacenar y crear todos los metodos CRUD o metodos que nosotros necesitemos particularmente.
+
+Para comenzar agregaremos una clase de tipo interfaz a la que nosotros le indicamos que herede o extienda de `JPA` repository, ademas de agregar como va a funcionar JpaRepository (tipo de dato principal).
+
+```java
+public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
+}
+```
+
+> **NOTA**
+>> - Para la creacion de interfaz se inicia con **I**.
+>> - Al utilizar *JpaRepository* nos evitamos crear manualmente el CRUD o el find byId de nuestra bd.
+
+## Creacion de servicios
+En la capa de servicios es en donde definimos nuestros metodos utilizadando nuestra interfaz de `repository`, para comenzar creamos un `package` dentro del paquete principal con el nombre `service`, en donde definimos nuestras clases como servicio para que `sprintboot` lo procese como si fuera un servicio.
+- 1.- vamos a crear un dependencia del tipo `@Autowired` nos inyecta nuestro repository `private IGuestRepository iGuestRepository;` y asi tenemos acceso a todo lo que tenga el repositorio.
+- 2.- Creamos lo metodos de nuestro servicio
+
+
+
+
+
