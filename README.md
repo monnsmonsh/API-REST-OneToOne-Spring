@@ -201,6 +201,10 @@ Una vez configurado, puedes ejecutar la API y probar los endpoints utilizando he
 
 ## Accesos
 Para accesar a la base de datos H2 mediante URL:
+```url
+http://localhost:8080/h2-console/
+
+```
 ```yml
   url: http://localhost:8080/h2-console/
   JDBC URL: jdbc:h2:mem:hotel	
