@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/management")
+@CrossOrigin(origins = "*")//para poder utilizar el frontend
 public class ManagementController {
 
     @Autowired
@@ -18,6 +19,7 @@ public class ManagementController {
     //GET
     @GetMapping
     public List<Management> listAll(){
+
         return managementService.getAllManagements();
     }
 

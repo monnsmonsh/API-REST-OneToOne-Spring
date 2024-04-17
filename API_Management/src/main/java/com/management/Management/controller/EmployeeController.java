@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/employee")
+@CrossOrigin(origins = "*")//para poder utilizar el frontend
 public class EmployeeController {
 
     @Autowired
@@ -25,6 +26,7 @@ public class EmployeeController {
     //POST
     @PostMapping
     public Employee create(@RequestBody Employee employee){
+
         return employeeService.createEmployee(employee);
     }
 
