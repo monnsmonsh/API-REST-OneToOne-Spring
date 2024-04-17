@@ -217,5 +217,10 @@ http://localhost:8080/swagger-ui/index.html
 <image src="https://github.com/monnsmonsh/API-REST-OneToOne-Spring/blob/main/assets/doc_api.png" alt="doc api">
 
 ## Uso de Frontend
-Este apartado es opcional
+Este apartado es opcional, lo primero que tenemos realizar es mandar llamar nuestra api en una `const`
+```js
+const API_URL_EMPLEADOS = "http://localhost:8080/api/v1/employee";
+const API_URL_CARGOS = "http://localhost:8080/api/v1/management";
+```
+
 
