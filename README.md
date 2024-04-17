@@ -81,12 +81,11 @@ public class Employee {
     private Management management;
 }
 ```
-Para definir las relacionacion primero tenemos que tener en claro que tipo de relacion tienen nuestra entidad en este caso es `@OneToOne` y  le indicamos que es una `cascade = CascadeType.ALL` para que con JPA y persistence se encargen de la relacion de la bd, es decir que si nosotros eliminamos un huespet todas sus resevaciones se iran con el y para relacionar esto tenemos que crear un *ARRAY* donde almacenaremos la inforamcion de todas la reservas y lo definimos que sea un tipo lista.
+Para definir las relacionacion primero tenemos que tener en claro que tipo de relacion tienen nuestra entidad en este caso es `@OneToOne` para que con JPA y persistence se encargen de la relacion de la bd.
 ```java
-    //generamos nuestra relacion
-    @OneToOne
-    private Management management;
-
+//generamos nuestra relacion
+@OneToOne
+private Management management;
 ```
 > **NOTA**
 >> Al utilizar *Lombok* nos evitamos crear nuestros getters y setters en nuestras entidades, y de los constructores.
@@ -109,10 +108,90 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 
 ## Creacion de servicios
 En la capa de servicios es en donde definimos nuestros metodos utilizadando nuestra interfaz de `repository`, para comenzar creamos un `package` dentro del paquete principal con el nombre `service`, en donde definimos nuestras clases como servicio para que `sprintboot` lo procese como si fuera un servicio.
-- 1.- vamos a crear un dependencia del tipo `@Autowired` nos inyecta nuestro repository `private IGuestRepository iGuestRepository;` y asi tenemos acceso a todo lo que tenga el repositorio.
+- 1.- vamos a crear un dependencia del tipo `@Autowired` nos inyecta nuestro repository `private IEmployeeRepository iEmployeeRepository;` y asi tenemos acceso a todo lo que tenga el repositorio.
 - 2.- Creamos lo metodos de nuestro servicio
 
+```java
+@Service
+public class EmployeeService {
+    @Autowired
+    private IEmployeeRepository iEmployeeRepository;
+
+    //Mostrar
+    public List<Employee> getAllEmployees(){
+        return iEmployeeRepository.findAll();
+    }
+
+    //crear
+    public Employee createEmployee(Employee employee){
+        return iEmployeeRepository.save(employee);
+    }
+
+    //edit
+    public Employee updateEmployee(Employee employee){
+        return iEmployeeRepository.save(employee);
+    }
+
+    //eliminar
+    public void deleteEmployeeById(Integer id){
+        iEmployeeRepository.deleteById(id);
+    }
+}
+```
 
 
+## Creacion de servicios
 
+Para crear nuestros controladores creamos un `package` dentro del paquete principal con el nombre `controller` en donde creamos nuestros controladores que definen el comportamiento de endpoints y nuestras rutas.
 
+Crearemos un `@RestController` y un `@RequestMapping` en donde definimos la ruta `("api/v1/employee")`, despues realizamos una inyeccion de nuestro service y crearemos los mismos metodos, solamente que enfocados en el controlador, ademas de agregar `@CrossOrigin(origins = "*")` para poder utilizar nuestra api con un frontend
+
+```java
+@RestController
+@RequestMapping("api/v1/employee")
+@CrossOrigin(origins = "*")//para poder utilizar el frontend
+public class EmployeeController {
+
+    @Autowired
+    public EmployeeService employeeService;
+
+    //GET
+    @GetMapping
+    public List<Employee> listAll(){
+        return employeeService.getAllEmployees();
+    }
+
+    //POST
+    @PostMapping
+    public Employee create(@RequestBody Employee employee){
+
+        return employeeService.createEmployee(employee);
+    }
+
+    //PUT
+    @PostMapping("edit/{id}")
+    public Employee update(@RequestBody Employee employee, @PathVariable Integer id){
+        employee.setIdEmployee(id);
+        return employeeService.updateEmployee(employee);
+    }
+
+    //DELETE
+    @DeleteMapping("delete/{id}")
+    public void delete(@PathVariable Integer id){
+        employeeService.deleteEmployeeById(id);
+    }
+}
+```
+
+> **NOTA**
+>> - Recuerda que al crear y realizar seteamos por medio de un `id` *Lombok*  nos lo crea en tiempo real sin necesidad de escrir el codigo en nuestro modelo (setter & getter).
+
+## Ejecución de la API
+Una vez configurado, puedes ejecutar la API y probar los endpoints utilizando herramientas como Postman.
+
+| Metodo | Type     | URL                |
+| :-------- | :------- | :------------------------- |
+| `GET` | `Listado` | localhost:8080/app/v1/employee |
+| `POST` | `Crear` | localhost:8080/app/v1/employee |
+| `PUT` | `Editar` | localhost:8080/app/v1/employee/edit/1 |
+| `DELETE` | `Eliminar` | localhost:8080/app/v1/employee/delete/4 |
