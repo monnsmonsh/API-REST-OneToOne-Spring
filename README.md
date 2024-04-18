@@ -143,7 +143,7 @@ public class EmployeeService {
 ```
 
 
-## Creacion de servicios
+## Creacion de Controladores
 
 Para crear nuestros controladores creamos un `package` dentro del paquete principal con el nombre `controller` en donde creamos nuestros controladores que definen el comportamiento de endpoints y nuestras rutas.
 
